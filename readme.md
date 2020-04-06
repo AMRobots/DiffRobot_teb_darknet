@@ -25,5 +25,5 @@ $ catkin_make -DCMAKE_BUILD_TYPE=Release
 ```
 - Bước 3: clone project này
 ```
-$
+$ roslaunch diff_robot_teb_darknet all.launch
 ```
