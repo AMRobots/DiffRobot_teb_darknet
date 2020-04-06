@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <!--Arguments for Gazebo_ros package  -->
+  <arg name="world" default="$(find diff_robot_teb_darknet)/worlds/diff_world_obstacles.world"/>
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="headless" default="true"/>
+  <arg name="debug" default="false"/>
+  <arg name="gui" default="true"/>
+  <!-- Vi tri khoi tao robot trong Gazebo -->
+  <arg name="x" default="4.320562"/>
+  <arg name="y" default="0.055916"/>
+  <arg name="z" default="0.180000"/>
+  <arg name="R" default="0.0"/>
+  <arg name="P" default="0.0"/>
+  <arg name="Y" default="-3.1"/>
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(arg world)"/>
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="gui" value="$(arg gui)"/>
+    <arg name="headless" value="$(arg headless)"/>
+    <arg name="debug" value="$(arg debug)"/>
+  </include>
+  <param name="robot_description" command="$(find xacro)/xacro '$(find diff_robot_teb_darknet)/urdf/diff_drive_robot.xacro' "/>
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+  <!-- Spawn dd_robot into Gazebo -->
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" output="screen"     args="-urdf -param robot_description -model diff_drive_robo -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg R) -P $(arg P)  -Y $(arg Y)" />
+</launch>
