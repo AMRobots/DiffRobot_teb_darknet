@@ -11,25 +11,17 @@
   <arg name="odom_topic" default="odom" />
 
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-    <rosparam file="$(find diff_drive_robot)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
-    <rosparam file="$(find diff_drive_robot)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />
-    <rosparam file="$(find diff_drive_robot)/param/local_costmap_params.yaml" command="load" />
-    <rosparam file="$(find diff_drive_robot)/param/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find diff_robot_teb_darknet)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find diff_robot_teb_darknet)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find diff_robot_teb_darknet)/param/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find diff_robot_teb_darknet)/param/global_costmap_params.yaml" command="load" />
 
   <!-- teb_local_planner -->
-  <rosparam file="$(find diff_drive_robot)/param/teb_local_planner_params.yaml" command="load" />
-
-  <!-- dwa_local_planner -->
-  <!-- <rosparam file="$(find diff_drive_robot)/param/dwa_local_planner_params.yaml" command="load" /> -->
+  <rosparam file="$(find diff_robot_teb_darknet)/param/teb_local_planner_params.yaml" command="load" />
 
   <!-- LOAD COSTMAP_CONVERTER PARAMETERS HERE -->
-  <rosparam file="$(find diff_drive_robot)/launch/includes/costmap_converter_params.yaml" command="load" />
+  <rosparam file="$(find diff_robot_teb_darknet)/launch/includes/costmap_converter_params.yaml" command="load" />
 
-
-<!--
-    <remap from="cmd_vel" to="navigation_velocity_smoother/raw_cmd_vel"/>
-    <remap from="odom" to="$(arg odom_topic)"/>
--->
 
     <param name="base_global_planner" value="global_planner/GlobalPlanner" />
     <param name="planner_frequency" value="1.0" />
@@ -37,9 +29,6 @@
 
     <!-- for teb_local_planner -->
     <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
-
-    <!-- for dwa_local_planner -->
-    <!-- <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" /> -->
     <param name="controller_frequency" value="5.0" />
     <param name="controller_patience" value="15.0" />
   </node>
