@@ -1,0 +1,26 @@
+<launch>
+
+  <!-- Map server -->
+  <arg name="map_file" default="$(find diff_robot_teb_darknet)/maps/diff_world_obstacles.yaml"/>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+ <!-- Vi tri khoi tao robot amcl (hien thi tro rviz)-->
+  <arg name="initial_pose_x" default="4.320562"/>
+  <arg name="initial_pose_y" default="0.055916"/>
+  <arg name="initial_pose_a" default="-3.1"/>
+
+  <include file="$(find diff_robot_teb_darknet)/launch/includes/amcl.launch.xml">
+
+    <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
+    <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
+    <arg name="initial_pose_a" value="$(arg initial_pose_a)"/>
+
+  </include>
+
+  <include file="$(find diff_robot_teb_darknet)/launch/includes/move_base.launch.xml"/>
+
+  <!--  **************** Visualisation ****************  -->
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find diff_robot_teb_darknet)/config/rviz_config.rviz" />
+
+</launch>
